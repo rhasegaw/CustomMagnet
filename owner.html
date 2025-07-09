@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>オーナーページ | {{COMPANY_NAME}}</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>オーナーダッシュボード</h1>
+  </header>
+
+  <main>
+    <section id="orders-section">
+      <h2>全注文一覧</h2>
+      <table id="ordersTable">
+        <thead>
+          <tr>
+            <th>注文ID</th>
+            <th>お名前</th>
+            <th>ステータス</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- JS will fill rows via fetch('/api/orders') -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+  async function loadOrders() {
+    // TODO: secure this endpoint and add auth in real app
+    const res = await fetch('/api/orders');
+    const orders = await res.json();
+    const tbody = document.querySelector('#ordersTable tbody');
+    orders.forEach(o => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${o.id}</td>
+        <td>${o.customerName}</td>
+        <td>${o.status}</td>
+        <td>
+          <button onclick="markComplete(${o.id})">完了</button>
+          <button onclick="downloadPhotos(${o.id})">写真DL</button>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  async function markComplete(id) {
+    await fetch(`/api/orders/${id}/complete`, { method: 'POST' });
+    location.reload();
+  }
+
+  function downloadPhotos(id) {
+    // Opens download link; implement server-side to zip & send
+    window.open(`/api/orders/${id}/photos`);
+  }
+
+  loadOrders();
+  </script>
+</body>
+</html>
