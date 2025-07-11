@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF‑8">
+  <meta name="viewport" content="width=device‑width, initial‑scale=1.0">
+  <title>Memory Magnets Japan – Custom Photo Magnets</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <main class="upload-section">
+    <h2>注文一覧</h2>
+    <table class="order-table">
+      <thead>
+        <tr><th>注文ID</th><th>メール</th><th>画像</th><th>完了</th></tr>
+      </thead>
+      <tbody id="order-table-body"></tbody>
+    </table>
+  </main>
+
+  <script>
+    async function fetchOrders() {
+      const res = await fetch("/api/orders");
+      const orders = await res.json();
+      const tbody = document.getElementById("order-table-body");
+      tbody.innerHTML = "";
+      orders.forEach(o => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${o.id}</td>
+            <td>${o.email}</td>
+            <td><a href="${o.image}" download>DL</a></td>
+            <td><button onclick="markComplete('${o.id}')">${o.completed?'✅':'Mark'}</button></td>
+          </tr>`;
+      });
+    }
+    async function markComplete(id) {
+      await fetch(`/api/orders/${id}/complete`,{method:"POST"});
+      fetchOrders();
+    }
+    fetchOrders();
+  </script>
+</body>
+</html>
+

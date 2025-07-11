@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>製品詳細 – Memory Magnets Japan</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="top-bar">LIFETIME WARRANTY ON ALL MAGNET MAKING KITS</div>
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Logo" class="site-logo">
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#products">カスタムマグネット</a></li>
+          <li><a href="#boards">マグネットボード</a></li>
+          <li><a href="#kits">マグネットキット</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="container product-detail">
+    <h1 id="prod-title">製品名</h1>
+    <p id="prod-price">¥0</p>
+
+    <div class="img-container">
+      <img id="crop-image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1IiBzdHJva2U9IiNkZGQiIHN0cm9rZS13aWR0aD0iMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNDAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7nlLvlg4/jgpLjgqLjg4Pjg5fjg63jg7zjg4k8L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI2MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2JiYiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuODleOCoeOCpOODq+OCkumBuOaKnuOBl+OBpuOBj+OBoOOBleOBhDwvdGV4dD48L3N2Zz4=" alt="Product Image">
+    </div>
+
+    <input type="file" id="upload-product-image" accept="image/*">
+    <button id="crop-button" class="btn">画像をトリミング</button>
+
+    <div id="qty-buttons">
+      <!-- buttons injected by script.js -->
+    </div>
+    <p>選択中: <span id="selected-qty">1</span> 個</p>
+
+    <button id="checkout-button" class="btn">チェックアウト（サンプル）</button>
+  </section>
+
+  <footer>
+    <div class="container footer">
+      <div>
+        <a href="privacy.html">プライバシーポリシー</a> |
+        <a href="terms.html">利用規約</a> |
+        <a href="refund.html">返金ポリシー</a> |
+        <a href="shipping.html">配送ポリシー</a>
+      </div>
+      <p>© 2025 Memory Magnets Japan</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
