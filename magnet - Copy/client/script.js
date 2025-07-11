@@ -1,29 +1,42 @@
 const products = [
   {
-    key: "5pack",
-    title: "5 pack",
+    key: "custom-photo-magnets-2x2",
+    title: "2\"x2\" Custom Photo Magnets",
+    description: "Custom 2\"x2\" square magnets. Please consider using the highest resolution photos for the best results!",
     options: [
-      { qty: 5, price: 2400 },
-      { qty: 9, price: 3800 },
-      { qty: 50, price: 14900 }
+      { qty: 5, price: 2499, label: "5 Pack" },
+      { qty: 9, price: 3899, label: "9 Pack" },
+      { qty: 50, price: 14999, label: "50 Pack" }
     ]
   },
   {
-    key: "9pack",
-    title: "9 pack",
+    key: "dummy1",
+    title: "Premium Photo Magnets",
+    description: "High quality premium photo magnets with glossy finish.",
     options: [
-      { qty: 5, price: 2400 },
-      { qty: 9, price: 3800 },
-      { qty: 50, price: 14900 }
+      { qty: 3, price: 1999, label: "3 Pack" },
+      { qty: 6, price: 3499, label: "6 Pack" },
+      { qty: 25, price: 12999, label: "25 Pack" }
     ]
   },
   {
-    key: "50pack",
-    title: "50 pack",
+    key: "dummy2",
+    title: "Mini Magnet Collection",
+    description: "Adorable mini magnets perfect for small photos and memories.",
     options: [
-      { qty: 5, price: 2400 },
-      { qty: 9, price: 3800 },
-      { qty: 50, price: 14900 }
+      { qty: 10, price: 2299, label: "10 Pack" },
+      { qty: 20, price: 4199, label: "20 Pack" },
+      { qty: 100, price: 15999, label: "100 Pack" }
+    ]
+  },
+  {
+    key: "dummy3",
+    title: "Jumbo Photo Magnets",
+    description: "Extra large magnets for maximum impact and visibility.",
+    options: [
+      { qty: 2, price: 2799, label: "2 Pack" },
+      { qty: 5, price: 5999, label: "5 Pack" },
+      { qty: 20, price: 19999, label: "20 Pack" }
     ]
   }
 ];
@@ -34,12 +47,17 @@ function generateHome() {
   if (!grid) return;
 
   products.forEach(p => {
+    const minPrice = Math.min(...p.options.map(o => o.price));
     grid.insertAdjacentHTML("beforeend", `
       <div class="product-card">
-        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1IiBzdHJva2U9IiNkZGQiIHN0cm9rZS13aWR0aD0iMiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7oorflk4E8L3RleHQ+PC9zdmc+" alt="${p.title}">
-        <h3>${p.title}</h3>
-        <p>From ¥${p.options[0].price.toLocaleString()}</p>
-        <button onclick="location.href='product.html?key=${p.key}'">詳細を見る</button>
+        <div class="product-image">
+          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjlmOWY5IiBzdHJva2U9IiNlMGUwZTAiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHg9IjUwJSIgeT0iNDAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5DdXN0b20gUGhvdG88L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI2MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk1hZ25ldDwvdGV4dD48L3N2Zz4=" alt="${p.title}">
+        </div>
+        <div class="product-info">
+          <h3>${p.title}</h3>
+          <p class="product-price">From $${(minPrice/100).toFixed(2)} USD</p>
+          <button class="product-btn" onclick="location.href='product.html?key=${p.key}'">詳細を見る</button>
+        </div>
       </div>
     `);
   });
@@ -57,7 +75,7 @@ function setupProduct() {
 
   console.log("Setting up product:", prod.title);
 
-  // Set title
+  // Set title and description
   document.getElementById("prod-title").innerText = prod.title;
   
   const priceElem = document.getElementById("prod-price");
@@ -70,21 +88,21 @@ function setupProduct() {
   // Create quantity buttons
   prod.options.forEach((option, index) => {
     const btn = document.createElement("button");
-    btn.innerText = `${option.qty}個`;
+    btn.innerText = option.label;
     btn.className = "qty-btn";
     btn.dataset.qty = option.qty;
     btn.dataset.price = option.price;
     
     btn.onclick = () => {
       // Update price and quantity display
-      priceElem.innerText = `¥${option.price.toLocaleString()}`;
+      priceElem.innerText = `$${(option.price/100).toFixed(2)} USD`;
       qtyDisplay.innerText = option.qty;
       
       // Update button states
       btnContainer.querySelectorAll(".qty-btn").forEach(b => b.classList.remove("selected"));
       btn.classList.add("selected");
       
-      console.log(`Selected: ${option.qty} for ¥${option.price}`);
+      console.log(`Selected: ${option.qty} for $${(option.price/100).toFixed(2)}`);
     };
     
     btnContainer.appendChild(btn);
@@ -101,9 +119,10 @@ function setupProduct() {
   // Checkout button
   document.getElementById("checkout-button").onclick = () => {
     const qty = qtyDisplay.innerText;
+    const price = priceElem.innerText;
     const cartIcon = document.querySelector(".icon-cart");
     if (cartIcon) cartIcon.innerText = `🛒 (${qty})`;
-    alert(`デモ購入：${prod.title} × ${qty}個`);
+    alert(`デモ購入：${prod.title} × ${qty}個 - ${price}`);
   };
 }
 
